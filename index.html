@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'none'; img-src 'none'; font-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<title>Lockout Drill — a phone-loss rehearsal</title>
+<style>
+:root{--bg:#fff;--text:#25282d;--muted:#62666d;--line:#d8dbe0;--blue:#2457d6;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:var(--bg);font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}button,select{cursor:pointer}button,a,input,select,summary{touch-action:manipulation}button{min-height:44px;padding:8px 18px;border:1px solid var(--blue);border-radius:6px;background:var(--blue);color:white;font-weight:700;line-height:1.35}button:hover{filter:brightness(.92)}button.secondary{color:var(--blue);background:white}button.quiet{color:var(--muted);background:white;border-color:var(--muted)}button:disabled{cursor:not-allowed;opacity:.65}a{color:var(--blue)}:focus-visible{outline:3px solid var(--blue);outline-offset:4px}input,select{width:100%;min-height:44px;border:1px solid var(--muted);border-radius:5px;padding:8px 10px;background:white;color:var(--text)}label{display:block;font-size:14px;font-weight:650;margin-bottom:6px}h1,h2,h3,p{margin:0}h1{font-size:32px;line-height:40px;letter-spacing:-1px}h2{font-size:24px;line-height:32px;letter-spacing:-.5px}h3{font-size:20px;line-height:28px;letter-spacing:-.4px}p{line-height:1.5}.muted,small{color:var(--muted)}small{font-size:14px;line-height:20px}.hidden,[hidden]{display:none!important}.skip{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:9}.skip:focus{top:8px}.shell{max-width:1504px;margin:auto;padding:24px 32px 16px}.top{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding-bottom:20px;border-bottom:1px solid var(--line)}.brand{padding-right:28px;border-right:1px solid var(--line)}.intro h2{font-size:32px;line-height:40px}.intro p{font-size:14px;color:var(--muted);margin-top:4px}.entry{display:flex;gap:12px}.entry button{max-width:220px}.privacy-mobile{display:none}.context{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 0 0}.context p{font-size:14px;font-weight:600}.text-button{border:0;background:white;color:var(--blue);padding:8px;min-height:44px;text-decoration:underline}.editor{margin-top:8px;border-bottom:1px solid var(--line);padding-bottom:16px}.editor summary{color:var(--blue);cursor:pointer;font-weight:650;min-height:44px;display:flex;align-items:center}.editor summary::before{content:'▸';margin-right:8px}.editor[open] summary::before{content:'▾'}.editor-top{display:grid;grid-template-columns:1fr 1fr auto auto;gap:16px;align-items:end;margin-bottom:16px}.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.method-fields{border:0;padding:0;margin:0;min-width:0;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start}.method-fields legend{font-weight:700;padding:0;margin-bottom:8px}.field{min-width:0}.method-main{grid-column:1/-1}.editor-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:16px}.help{font-size:14px;line-height:20px;color:var(--muted)}.editor-help{margin:8px 0 16px}.start{padding:64px 0 72px;max-width:680px;margin:auto;text-align:center}.start .eyebrow{color:var(--blue);font-weight:700;margin-bottom:12px}.start h2{font-size:40px;line-height:48px;margin-bottom:16px}.start p+p{margin-top:12px}.start .steps{margin:28px 0;text-align:left;padding-left:24px;line-height:1.8}.simulation{text-align:center;padding:16px 0}.scenario{display:flex;justify-content:center;gap:12px;align-items:center;flex-wrap:wrap}.scenario-label{font-size:14px;color:var(--muted)}.comparison{display:flex;justify-content:center;align-items:center;gap:56px;margin:8px 0}.metric{min-width:240px}.number{display:block;font-size:112px;font-weight:800;line-height:120px;font-variant-numeric:tabular-nums;letter-spacing:-5px}.metric-label{font-size:24px;font-weight:750;line-height:32px}.arrow{font-size:88px;font-weight:350;line-height:1}.denominator{font-size:20px;color:var(--muted)}.current{font-size:14px;color:var(--muted);margin-top:8px}.simulation-note{font-size:14px;max-width:860px;margin:8px auto 0;color:var(--muted)}.toolbar{display:flex;gap:16px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:8px}.toolbar button{font-size:14px}.fix-section{border-top:1px solid var(--line);padding-top:16px}.section-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:12px}.section-top h2{font-size:18px;line-height:24px}.section-top p{font-size:14px;color:var(--muted)}.fixes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.fix-card{border:1px solid var(--line);border-radius:6px;padding:16px;display:flex;flex-direction:column;gap:12px}.fix-heading{display:flex;align-items:flex-start;gap:14px}.step{border-radius:50%;background:var(--blue);color:white;flex:0 0 40px;height:40px;display:grid;place-items:center;font-size:24px;font-weight:750}.fix-copy{flex:1;min-width:0}.fix-copy h3{margin-bottom:4px}.fix-copy p{font-size:14px;line-height:20px}.effect{font-weight:700}.targets{color:var(--muted);margin-top:4px}.fix-card .confirmation{margin-top:auto}.confirmation label{font-size:12px;line-height:18px}.confirmation select{font-size:14px}.fix-action{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:auto}.transition{font-size:24px;font-weight:750;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}.fix-action button{font-size:16px}.applied{border-style:solid;border-color:var(--muted)}.applied .step{color:var(--text);background:white;border:1px solid var(--muted)}.reasons{margin-top:24px;border-top:1px solid var(--line);padding-top:12px}.reasons-intro{font-size:14px;color:var(--muted);margin:4px 0 16px}.account-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 24px}.account{padding:12px 0;min-width:0}.account-head{display:flex;align-items:center;gap:10px}.status-icon{font-size:24px;flex-shrink:0;width:28px;text-align:center;line-height:28px}.account h3{font-size:16px;line-height:24px;letter-spacing:0;overflow-wrap:anywhere}.badge{font-size:12px;line-height:18px;white-space:nowrap;border-bottom:2px dashed var(--muted);padding-bottom:2px;margin-left:auto}.badge.available{border-bottom-style:solid}.badge.unknown{border-bottom-style:dotted}.chain{margin:4px 0 0 38px;font-size:14px;line-height:20px;color:var(--muted);overflow-wrap:anywhere}.account details{margin-left:38px;font-size:14px}.account summary{min-height:44px;display:flex;align-items:center;color:var(--blue);text-decoration:underline;cursor:pointer}.account details ul{padding-left:18px;color:var(--muted);margin:0 0 12px;line-height:1.5}.account button{margin:4px 0 0 38px;max-width:calc(100% - 38px);font-size:14px}.view-all{display:none}.footer{border-top:1px solid var(--line);margin-top:24px;padding-top:12px;text-align:center;font-size:14px;color:var(--muted)}.footer strong{font-weight:650}.privacy-detail{margin-top:8px;font-size:12px}.notice{margin-top:12px;font-size:14px;color:var(--text);min-height:20px}.notice:empty{min-height:0;margin-top:0}.error{border-left:3px solid var(--text);padding-left:12px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}dialog{max-width:600px;width:calc(100% - 32px);padding:24px;border:1px solid var(--muted);border-radius:6px;color:var(--text);background:white;max-height:90dvh;overflow:auto}dialog::backdrop{background:#25282d80}dialog h2{margin-bottom:8px}dialog p{margin-bottom:16px}dialog .method-fields{display:block}dialog .field{margin:12px 0}dialog .dialog-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}dialog .dialog-actions button{flex:1}dialog .dismiss{width:100%;margin-top:12px}.empty{padding:24px 0;color:var(--muted)}
+@media(min-width:1000px){.account-list{grid-auto-flow:column;grid-template-rows:repeat(3,auto)}.account:nth-child(n+4){border-left:1px solid var(--line);padding-left:24px}}
+@media(max-width:1100px){.top{grid-template-columns:auto 1fr;gap:16px}.intro{grid-column:2}.entry{grid-column:1/-1;justify-content:flex-end}.fix-action{flex-wrap:wrap}.fix-action button{flex:1}.metric{min-width:200px}.fix-copy h3{font-size:18px;line-height:24px}}
+@media(max-width:700px){.shell{padding:0 16px 16px}.top{display:block;border:0;padding-bottom:0}.brand{border:0;padding:0}h1{font-size:20px;line-height:28px;letter-spacing:-.5px;padding:4px 0 8px}.intro{display:none}.entry{display:grid;grid-template-columns:1fr 1fr;gap:8px}.entry button{max-width:none;font-size:16px;line-height:22px;padding:8px 12px;min-height:56px}.privacy-mobile{display:block;font-size:12px;line-height:18px;margin-top:6px;color:var(--muted)}.context{padding-top:8px;gap:8px}.context p{font-size:12px}.context button{font-size:12px;white-space:nowrap;padding:4px}.editor{margin-top:0}.editor summary{font-size:14px}.editor-top{grid-template-columns:1fr 1fr;gap:12px}.editor-top .field{grid-column:1/-1}.method-grid{grid-template-columns:1fr;gap:24px}.method-fields{grid-template-columns:1fr}.method-main{grid-column:auto}.editor-actions button{width:100%}.start{padding:36px 0}.start h2{font-size:28px;line-height:36px}.start p{font-size:14px}.start .steps{font-size:14px;margin:20px 0}.simulation{padding:8px 0 16px}.scenario{gap:4px}.scenario button{font-size:14px;min-height:44px;padding:6px 12px}.scenario-label{font-size:12px}.comparison{gap:16px;margin:0 0 8px}.metric{min-width:0;flex:1;max-width:155px}.number{font-size:56px;line-height:64px;color:var(--blue);letter-spacing:-2px}.metric-label{font-size:12px;line-height:18px;font-weight:600}.arrow{font-size:40px;color:var(--blue)}.denominator{font-size:14px;line-height:20px;border-top:1px solid var(--line);padding-top:4px;margin:0 16px}.current{font-size:12px;line-height:18px;margin-top:4px}.simulation-note{font-size:12px;line-height:18px}.toolbar{margin-top:4px;gap:8px}.toolbar button{font-size:12px;min-height:44px}.fix-section{padding-top:0;border:0}.section-top{display:block;margin-bottom:8px}.section-top h2{font-size:16px}.section-top p{font-size:12px;line-height:18px}.fixes{grid-template-columns:1fr;gap:12px}.fix-card{padding:10px 8px 8px;gap:8px}.fix-heading{gap:8px}.step{width:26px;flex-basis:26px;height:26px;font-size:16px}.fix-copy h3{font-size:18px;line-height:24px;margin-bottom:0}.fix-copy .targets{display:none}.fix-copy p{font-size:12px;line-height:18px}.fix-action{display:block}.transition{display:none}.fix-action button{width:100%;font-size:18px;min-height:44px}.reasons{margin-top:20px;border:0;padding:0}.reasons h2{font-size:18px;line-height:24px}.reasons-intro{font-size:12px;margin:4px 0 8px}.account-list{display:block}.account-list:not(.expanded) .account:nth-child(n+2){display:none}.account{padding:8px 0;border-top:1px solid var(--line)}.account-head{gap:6px}.account h3{font-size:16px}.chain{margin-left:0}.account details{margin-left:0}.account button{width:100%;max-width:100%;margin:4px 0 0}.view-all{display:block;min-height:44px;padding-left:0}.footer{text-align:left;font-size:12px;line-height:18px;margin-top:8px;padding-top:8px}.privacy-detail{font-size:12px}.notice{font-size:12px}dialog{padding:20px}.dialog-actions{flex-direction:column}}
+@media(prefers-reduced-motion:no-preference){button{transition:filter .15s}}
+.editor:not([open])>summary{display:none}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to drill</a>
+<div class="shell">
+<header class="top">
+  <div class="brand"><h1>Lockout Drill</h1></div>
+  <div class="intro"><h2>If your phone disappeared today?</h2><p>Choose methods, never enter passwords, IDs, phone numbers or email addresses.<br>No secrets. Nothing leaves your device. No sign-up. No cost.</p></div>
+  <div class="entry"><button id="sample">Try the sample student</button><button id="own" class="secondary">Start with your own list</button></div>
+</header>
+<p class="privacy-mobile">No secrets. Nothing leaves your device. No sign-up. No cost.</p>
+<main id="main" tabindex="-1">
+  <div class="context" id="context" hidden><p id="identity"></p><button id="edit-toggle" class="text-button" aria-controls="editor" aria-expanded="false">Edit methods ▾</button></div>
+  <details class="editor" id="editor" hidden>
+    <summary>Edit account methods</summary>
+    <p class="editor-help help">Use nicknames and method types only. Never enter a real login ID, email address, phone number, password or recovery code. All changes stay in this tab.</p>
+    <form id="edit-form">
+      <div class="editor-top">
+        <div class="field"><label for="account-select">Account to edit</label><select id="account-select"></select></div>
+        <div class="field"><label for="nickname">Account nickname <span class="muted">(not a login ID)</span></label><input id="nickname" maxlength="32" required autocomplete="off" spellcheck="false" placeholder="e.g. Main email"></div>
+        <button type="button" id="add-account" class="secondary">Add from template</button><button type="button" id="delete-account" class="quiet">Remove account</button>
+      </div>
+      <div class="method-grid"><fieldset class="method-fields" id="sign-fields"><legend>Sign-in method</legend></fieldset><fieldset class="method-fields" id="recovery-fields"><legend>Recovery method</legend></fieldset></div>
+      <div class="editor-actions"><button type="submit">Save methods &amp; run drill</button><button type="button" id="cancel-edit" class="secondary">Discard unsaved edits</button><p class="help">Saving starts a fresh simulation. Switching accounts discards unsaved edits. Unlisted methods are not checked.</p></div>
+      <p id="edit-error" class="notice error" role="alert" hidden></p>
+    </form>
+  </details>
+  <section id="welcome" class="start" aria-labelledby="welcome-title"><p class="eyebrow">A rehearsal, before you need one.</p><h2 id="welcome-title">One missing phone.<br>Which accounts go with it?</h2><p><strong>Start with “Try the sample student” above.</strong><br>It runs a phone-loss drill for Mika’s 9 fictional accounts.</p><ol class="steps"><li>See what depends on the missing phone.</li><li>Apply three proposed fixes and watch the counts change.</li><li>Inspect a reason, challenge it, or undo any change.</li></ol><p class="muted">Or build a short list from templates in about 3 minutes.<br>Only method types and nicknames. No accounts to connect.</p><button id="undo-empty" class="text-button" hidden>Undo last change</button></section>
+  <div id="results" hidden>
+    <section class="simulation" aria-label="Phone-loss simulation">
+      <div class="scenario"><button id="lose">▱ Lose my phone</button><span class="scenario-label">Simulation only · phone unavailable</span></div>
+      <div class="comparison"><div class="metric"><span id="before" class="number">7</span><p class="metric-label">Locked out before</p></div><span class="arrow" aria-hidden="true">→</span><div class="metric"><span id="after" class="number">1</span><p id="after-label" class="metric-label">After 3 proposed fixes</p></div></div>
+      <p id="denominator" class="denominator"></p><p id="current" class="current"></p>
+      <p id="simulation-note" class="simulation-note"></p>
+      <div class="toolbar"><button id="reset" class="text-button">Reset simulation</button><button id="undo" class="text-button" disabled>Undo last change</button></div>
+    </section>
+    <section class="fix-section" aria-labelledby="fix-title"><div class="section-top"><h2 id="fix-title">Try these proposed fixes</h2><p>Apply in any order. Every count is recalculated.</p></div><div id="fixes" class="fixes"></div></section>
+    <section class="reasons" aria-labelledby="reason-title"><h2 id="reason-title">Why each account is affected</h2><p class="reasons-intro">Current model · × Locked out &nbsp; ✓ Available &nbsp; ? Unknown. Available means a modeled path exists.</p><div id="accounts" class="account-list"></div><button id="view-all" class="text-button view-all" aria-expanded="false" aria-controls="accounts">View all 9 accounts</button></section>
+  </div>
+  <p id="announcement" class="notice" role="status" aria-live="polite" aria-atomic="true"></p>
+  <button id="clear" class="text-button" hidden>Clear list &amp; start over</button>
+</main>
+<footer class="footer"><strong>This is a model of your setup, not proof that recovery will work. Some services offer other recovery paths.</strong><p class="privacy-detail">Unknown does not mean safe. No automatic saving: reload or close this tab to clear the list. Use fictional data for the demo.</p></footer>
+</div>
+<dialog id="challenge-dialog" aria-labelledby="challenge-title"><h2 id="challenge-title">I have another way in</h2><p id="challenge-description"></p><form id="challenge-form"><fieldset class="method-fields" id="challenge-fields"><legend>Describe the alternate path</legend></fieldset><p class="help">A statement alone is not proof. Only a complete, usable modeled path can change this account to Available.</p><div class="dialog-actions"><button type="submit">Add path to simulation</button><button type="button" data-close="challenge-dialog" class="secondary">Cancel</button></div><button type="button" id="dismiss" class="secondary dismiss">Dismiss flag as Unknown — no path supplied</button></form></dialog>
+<dialog id="template-dialog" aria-labelledby="template-title"><h2 id="template-title">Add an account template</h2><p>Templates are starting points. Choose only the methods that match the setup you want to model.</p><form id="template-form"><label for="template">Account template</label><select id="template"><option value="email">Main email · authenticator on phone</option><option value="school">School portal · authenticator on phone</option><option value="bank">Bank · SMS to phone</option><option value="photos">Photos · passkey on phone</option><option value="library">Library · memorized passphrase</option><option value="unknown">Other account · Unknown</option></select><div class="dialog-actions"><button type="submit">Add &amp; edit methods</button><button type="button" class="secondary" data-close="template-dialog">Cancel</button></div></form></dialog>
+<script id="lockout-core">
+/* Pure model: no DOM, storage, network, clock, randomness, or mutation of inputs. */
+const Lockout = (() => {
+  const kinds = ['authenticator','sms','phone_passkey','backup','email','passphrase','manager','other','unknown','device_passkey'];
+  const copy = value => JSON.parse(JSON.stringify(value));
+  const method = (kind, extra = {}) => ({kind, ...extra});
+  const account = (id, name, methods) => ({id, name, methods});
+  function sample() {
+    return [
+      account('bank','Bank',[method('sms')]),
+      account('school','School portal',[method('authenticator'),method('backup',{store:'phone'})]),
+      account('email','Main email',[method('authenticator'),method('backup',{store:'phone'})]),
+      account('code','Code host',[method('authenticator'),method('backup',{store:'phone'})]),
+      account('notes','Cloud notes',[method('phone_passkey')]),
+      account('photos','Photos',[method('phone_passkey')]),
+      account('jobs','Student jobs',[method('email',{dependency:'email',secondFactor:'phone'})]),
+      account('library','Library',[method('passphrase')]),
+      account('wallet','Wallet',[method('unknown')])
+    ];
+  }
+  const and = values => values.includes(false) ? false : values.every(v=>v===true) ? true : null;
+  const or = values => values.includes(true) ? true : values.length && values.every(v=>v===false) ? false : null;
+  function evaluate(input, options = {}) {
+    const phoneLost = options.phoneLost !== false;
+    const invalid = !Array.isArray(input) || input.some(a=>!a || typeof a.id!=='string' || !a.id || typeof a.name!=='string') || new Set((Array.isArray(input)?input:[]).map(a=>a?.id)).size !== (Array.isArray(input)?input.length:0);
+    if (invalid) return {ok:false,error:'Invalid or duplicate account identifiers. The model cannot establish a result.',accounts:[],counts:{locked:0,available:0,unknown:Array.isArray(input)?input.length:0}};
+    const data = input;
+    let states = Object.fromEntries(data.map(a=>[a.id,null]));
+    const names = Object.fromEntries(data.map(a=>[a.id,a.name]));
+    const dependency = id => Object.hasOwn(states,id) ? states[id] : null;
+    const store = m => m.store==='phone' ? !phoneLost : m.store==='printed' ? true : m.store==='device' ? m.independent===true ? true : m.independent===false ? false : null : null;
+    function route(m) {
+      if (!m || typeof m!=='object' || !kinds.includes(m.kind) || m.confirmed===false) return null;
+      switch(m.kind) {
+        case 'authenticator': case 'sms': case 'phone_passkey': return !phoneLost;
+        case 'backup': return store(m);
+        case 'passphrase': return true;
+        case 'email': return and([dependency(m.dependency), m.secondFactor==='phone' ? !phoneLost : m.secondFactor==='none' ? true : null]);
+        case 'device_passkey': return m.exists===false ? false : m.exists===true ? (m.independent===true ? true : m.independent===false ? false : null) : null;
+        case 'manager': return and([m.store==='phone'||m.store==='device'?store(m):null,m.unlock==='memorized' ? true : m.unlock==='phone' ? !phoneLost : m.unlock==='account' ? dependency(m.dependency) : null]);
+        case 'other': return m.supported===true ? (m.independent===true ? true : m.independent===false ? false : null) : null;
+        default: return null;
+      }
+    }
+    function value(a) {
+      if (!Array.isArray(a.methods)) return null;
+      return or([...a.methods.map(route), ...(a.unverified ? [null] : [])]);
+    }
+    // Start unknown; propagate only justified facts. Unresolved cycles stay unknown.
+    for(let pass=0;pass<=data.length;pass++) {
+      const next = Object.fromEntries(data.map(a=>[a.id,value(a)]));
+      if(data.every(a=>next[a.id]===states[a.id])) break;
+      states=next;
+    }
+    const status = v => v===true?'Available':v===false?'Locked out':'Unknown';
+    function describe(m) {
+      if(!m || typeof m!=='object') return 'Incomplete method';
+      const location = m.store==='phone'?'Phone':m.store==='printed'?'Printed copy off phone':m.store==='device'?'Another device'+(m.independent===true?' (independent)':m.independent===false?' (not independently accessible)':' (access unconfirmed)'):'Storage unknown';
+      let text;
+      switch(m.kind) {
+        case 'authenticator':text='Authenticator ← Phone';break;
+        case 'sms':text='SMS ← Phone';break;
+        case 'phone_passkey':text='Passkey ← Phone';break;
+        case 'backup':text='Backup codes ← '+location;break;
+        case 'passphrase':text='Memorized passphrase';break;
+        case 'email':text='Recovery email ← '+(names[m.dependency] || 'Unspecified account')+' AND '+(m.secondFactor==='phone'?'second factor on Phone':m.secondFactor==='none'?'no additional factor required':'second-factor requirements unknown');break;
+        case 'device_passkey':text='Passkey ← Another device ('+(m.exists===false?'no device':m.exists!==true?'device unconfirmed':m.independent===true?'independently accessible':m.independent===false?'not independently accessible':'access unconfirmed')+')';break;
+        case 'manager':text='Login manager ← '+location+' AND unlock via '+(m.unlock==='memorized'?'memorized passphrase':m.unlock==='phone'?'Phone':m.unlock==='account'?(names[m.dependency]||'unspecified account'):'unknown method');break;
+        case 'other':text='Other recovery path ('+(m.supported===true?'service support confirmed':'service support unconfirmed')+'; '+(m.independent===true?'independent':m.independent===false?'not independent':'independence unknown')+')';break;
+        default:text='Recovery method not specified';
+      }
+      return text+(m.confirmed===false?' · unconfirmed assumption':'');
+    }
+    const accounts = data.map(a=>{
+      const methods=Array.isArray(a.methods)?a.methods:[];
+      const paths=methods.map(m=>({text:describe(m),status:status(route(m))}));
+      if(!paths.length) paths.push({text:'No complete method supplied',status:'Unknown'});
+      if(a.unverified) paths.push({text:'Flag dismissed; alternate path not supplied',status:'Unknown'});
+      const s=status(states[a.id]);
+      const best=paths.find(p=>p.status===s)||paths[0];
+      return {id:a.id,name:a.name,status:s,chain:a.name+' ← '+best.text,paths,explanation:s==='Available'?'At least one complete modeled path works without the missing phone. Real recovery has not been verified.':s==='Locked out'?'All supplied paths are blocked in this model. An unlisted service recovery option could change this result.':'A path is missing, unconfirmed, or depends on an unresolved cycle. This is not a safe result.'};
+    });
+    return {ok:true,accounts,counts:{locked:accounts.filter(a=>a.status==='Locked out').length,available:accounts.filter(a=>a.status==='Available').length,unknown:accounts.filter(a=>a.status==='Unknown').length}};
+  }
+  function proposals(data) {
+    const has = (a,fn) => Array.isArray(a.methods) && a.methods.some(m=>m && fn(m));
+    return [
+      {id:'backup',title:'Store backup codes off your phone',targets:data.filter(a=>has(a,m=>m.kind==='backup'&&m.store==='phone')).map(a=>a.id)},
+      {id:'passkey',title:'Add a passkey on another device',targets:data.filter(a=>has(a,m=>m.kind==='phone_passkey')).map(a=>a.id)},
+      {id:'independent',title:'Add independent recovery',targets:data.filter(a=>has(a,m=>m.kind==='email'&&m.secondFactor==='phone')).map(a=>a.id)}
+    ];
+  }
+  function apply(data,fix,confirmed) {
+    const next=copy(data);
+    for(const a of next) {
+      if(!fix.targets.includes(a.id)) continue;
+      const m=fix.id==='backup'?method('backup',{store:'printed',confirmed:confirmed===true}):fix.id==='passkey'?method('device_passkey',{exists:true,independent:true,confirmed:confirmed===true}):fix.id==='independent'?method('other',{supported:true,independent:true,confirmed:confirmed===true}):null;
+      if(m) a.methods.push(m);
+    }
+    return next;
+  }
+  function alternate(data,id,path) {
+    const next=copy(data),a=next.find(a=>a.id===id);
+    if(a) { if(path) a.methods.push(copy(path)); else a.unverified=true; }
+    return next;
+  }
+  function rescued(before,after) {
+    return after.accounts.filter(a=>a.status==='Available'&&before.accounts.some(b=>b.id===a.id&&b.status==='Locked out')).length;
+  }
+  return {sample,evaluate,proposals,apply,alternate,rescued};
+})();
+</script>
+<script id="lockout-ui">
+(() => {
+  'use strict';
+  const $=id=>document.getElementById(id), clone=x=>JSON.parse(JSON.stringify(x));
+  const labels={authenticator:'Authenticator app on phone',sms:'SMS code to phone',phone_passkey:'Passkey on phone',backup:'Backup codes',email:'Recovery email',passphrase:'Memorized passphrase',manager:'Login manager app',other:'Other known method',unknown:'Unknown',device_passkey:'Passkey on another device'};
+  let state={base:[],applied:[],alternates:[],confirmed:{},mode:'sample'},history=[],selected='',serial=0,challengeId='';
+  const node=(tag,text,cls)=>{const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(cls)el.className=cls;return el;};
+  function announce(text){$('announcement').textContent=text;}
+  function remember(){history.push(clone(state));if(history.length>30)history.shift();}
+  function activeData(){let d=clone(state.base);for(const id of state.applied){const fix=Lockout.proposals(state.base).find(f=>f.id===id);if(fix)d=Lockout.apply(d,fix,state.confirmed[id]===true);}for(const alt of state.alternates)d=Lockout.alternate(d,alt.id,alt.path);return d;}
+  function commitMessage(text){render();announce(text);}
+  function start(mode){remember();state={base:mode==='sample'?Lockout.sample():[{id:'own-'+(++serial),name:'Main email',methods:[{kind:'unknown'}]}],applied:[],alternates:[],confirmed:mode==='sample'?{backup:true,passkey:true,independent:true}:{},mode};selected=state.base.find(a=>a.id==='email')?.id||state.base[0].id;render();loadEditor();$('editor').open=mode==='own';if(mode==='own')$('nickname').focus();else $('lose').focus();announce(mode==='sample'?'Sample loaded. Phone loss simulated: 7 Locked out, 1 Available, 1 Unknown. Next, apply a proposed fix.':'Your list starts with one Unknown account. Choose its methods, or add an account template.');}
+  function render(){
+    const has=state.base.length>0;
+    $('context').hidden=!has;$('editor').hidden=!has;$('welcome').hidden=has;$('results').hidden=!has;$('clear').hidden=!has;
+    $('undo').disabled=!history.length;
+    $('undo-empty').hidden=has||!history.length;
+    if(!has)return;
+    $('identity').textContent=(state.mode==='sample'?'Mika / fictional student':'Your list / method model')+' / '+state.base.length+' accounts';
+    const data=activeData(),before=Lockout.evaluate(state.base),current=Lockout.evaluate(data),fixes=Lockout.proposals(state.base);
+    if(!current.ok||!before.ok){$('results').hidden=true;announce('Unknown — the model could not read this list. Clear it and start again.');return;}
+    let projected=data;
+    const previews=fixes.map(f=>{const prior=Lockout.evaluate(projected),applied=state.applied.includes(f.id);if(!applied&&f.targets.length)projected=Lockout.apply(projected,f,state.confirmed[f.id]===true);const after=Lockout.evaluate(projected);return {f,prior,after,applied,rescues:Lockout.rescued(prior,after)};});
+    const forecast=Lockout.evaluate(projected),pending=fixes.filter(f=>f.targets.length&&!state.applied.includes(f.id)).length,total=fixes.filter(f=>f.targets.length).length,unconfirmed=fixes.some(f=>f.targets.length&&state.confirmed[f.id]!==true);
+    $('before').textContent=before.counts.locked;$('after').textContent=unconfirmed?'?':forecast.counts.locked;
+    $('after-label').textContent=unconfirmed?'After fixes: Unknown':pending?'After '+total+' proposed fixes':state.applied.length?'After '+state.applied.length+' applied fixes':'Current modeled result';
+    $('denominator').textContent='of '+state.base.length+' accounts · '+forecast.counts.unknown+' '+(forecast.counts.unknown===1?'stays':'stay')+' Unknown in the projection';
+    $('current').textContent='Current: '+current.counts.locked+' Locked out · '+current.counts.available+' Available · '+current.counts.unknown+' Unknown · '+state.applied.length+'/'+total+' fixes applied';
+    $('simulation-note').textContent='Before = phone lost, before simulation changes. '+(pending?'After is a projection of the remaining proposals. ':'')+(state.alternates.length?'After also includes alternate-path changes. ':'')+(state.mode==='sample'?'Fix requirements are assumed for this fictional sample. ':'')+'No real account settings are changed.';
+    $('fixes').replaceChildren();
+    previews.forEach(({f,prior,after,applied,rescues},i)=>{
+      const card=node('article',undefined,'fix-card'+(applied?' applied':''));const heading=node('div',undefined,'fix-heading');heading.append(node('span',applied?'✓':String(i+1),'step'));
+      const copy=node('div',undefined,'fix-copy'),title=node('h3',f.title);copy.append(title);
+      const uncertain=state.confirmed[f.id]!==true;
+      copy.append(node('p',!f.targets.length?'No matching methods in this list':applied?'Applied to simulation':uncertain?'Rescues unconfirmed · check requirements':'Rescues '+rescues+' · '+prior.counts.locked+' → '+after.counts.locked,'effect'));
+      copy.append(node('p',f.targets.map(id=>state.base.find(a=>a.id===id)?.name).join(', ')||'Edit methods to describe your setup.','targets'));heading.append(copy);card.append(heading);
+      if(state.mode==='own'&&f.targets.length&&!applied){
+        const wrap=node('div',undefined,'confirmation'),label=node('label',f.id==='backup'?'Can you keep usable codes on paper off the phone?':f.id==='passkey'?'Service supports it, and another device opens without this phone?':'Service supports a recovery path independent of phone and email?');
+        const select=node('select');select.id='confirm-'+f.id;label.htmlFor=select.id;[['unknown','Not confirmed — keep Unknown'],['yes','Yes — model this assumption']].forEach(([v,t])=>{const opt=node('option',t);opt.value=v;select.append(opt);});select.value=state.confirmed[f.id]===true?'yes':'unknown';select.addEventListener('change',()=>{remember();state.confirmed[f.id]=select.value==='yes';render();$('confirm-'+f.id)?.focus();announce('Proposal assumptions updated. Counts recalculated.');});wrap.append(label,select);card.append(wrap);
+      }
+      const action=node('div',undefined,'fix-action');action.append(node('span',applied?'Applied':!f.targets.length?'—':prior.counts.locked+' → '+after.counts.locked,'transition'));
+      const button=node('button',applied?'Undo fix':'Apply to simulation',applied?'secondary':'');button.id='fix-'+f.id;button.disabled=!f.targets.length;button.setAttribute('aria-label',(applied?'Undo: ':'Apply to simulation: ')+f.title);button.addEventListener('click',()=>{remember();if(applied)state.applied=state.applied.filter(id=>id!==f.id);else state.applied.push(f.id);render();$('fix-'+f.id).focus();const c=Lockout.evaluate(activeData()).counts;announce((applied?'Undid: ':'Applied: ')+f.title+'. Current: '+c.locked+' Locked out, '+c.available+' Available, '+c.unknown+' Unknown.');});action.append(button);card.append(action);$('fixes').append(card);
+    });
+    $('accounts').replaceChildren();
+    current.accounts.forEach(a=>{
+      const item=node('article',undefined,'account'),head=node('div',undefined,'account-head'),symbol=a.status==='Available'?'✓':a.status==='Locked out'?'×':'?';head.append(node('span',symbol,'status-icon'),node('h3',a.name),node('span',a.status,'badge '+(a.status==='Available'?'available':a.status==='Unknown'?'unknown':'locked')));item.append(head,node('p',a.chain,'chain'));
+      const detail=node('details'),sum=node('summary','Why this result?');sum.setAttribute('aria-label','Why '+a.name+' is '+a.status);detail.append(sum,node('p',a.explanation));const list=node('ul');a.paths.forEach(p=>list.append(node('li',p.status+' — '+p.text)));detail.append(list);item.append(detail);
+      if(a.status!=='Available'){const challenge=node('button','I have another way in','secondary');challenge.id='challenge-'+a.id;challenge.setAttribute('aria-label','I have another way into '+a.name);challenge.addEventListener('click',()=>openChallenge(a));item.append(challenge);}
+      if(state.alternates.some(x=>x.id===a.id)){const undo=node('button','Undo alternate-path change','text-button');undo.addEventListener('click',()=>{remember();state.alternates=state.alternates.filter(x=>x.id!==a.id);render();$('challenge-'+a.id)?.focus();announce('Alternate-path changes removed for '+a.name+'.');});item.append(undo);}
+      $('accounts').append(item);
+    });
+    $('view-all').textContent=$('accounts').classList.contains('expanded')?'Show first account':'View all '+state.base.length+' accounts';
+  }
+  function field(container,prefix,key,title,options,value,onChange){const wrap=node('div',undefined,'field'+(key==='kind'?' method-main':'')),label=node('label',title),select=node('select');select.id=prefix+'-'+key;label.htmlFor=select.id;options.forEach(([v,t])=>{const opt=node('option',t);opt.value=v;select.append(opt);});select.value=value==null?'unknown':String(value);if(select.selectedIndex<0)select.selectedIndex=0;select.addEventListener('change',onChange||(()=>{}));wrap.append(label,select);container.append(wrap);return select;}
+  function buildFields(container,prefix,m,allowNone=false){
+    const legend=container.querySelector('legend');container.replaceChildren();if(legend)container.append(legend);
+    const opts=Object.entries(labels);if(allowNone)opts.unshift(['none','No additional method (known)']);
+    field(container,prefix,'kind','Method',opts,m.kind,()=>{const kind=$(prefix+'-kind').value;buildFields(container,prefix,{kind},allowNone);$(prefix+'-kind').focus();});
+    const kind=m.kind;
+    const tri=[['unknown','Unknown'],['true','Yes'],['false','No']];
+    if(kind==='backup'||kind==='manager')field(container,prefix,'store','Stored where?',[['unknown','Unknown'],['phone','On phone'],...(kind==='backup'?[['printed','Printed copy off phone']]:[]),['device','Another device']],m.store,()=>{const current=readFields(prefix);buildFields(container,prefix,current,allowNone);$(prefix+'-store').focus();});
+    if((kind==='backup'||kind==='manager')&&m.store==='device')field(container,prefix,'independent','Can you access that device without this phone?',tri,m.independent);
+    if(kind==='email'||kind==='manager'){
+      if(kind==='manager')field(container,prefix,'unlock','How is the manager unlocked?',[['unknown','Unknown'],['memorized','Memorized passphrase'],['phone','Requires phone'],['account','Requires an account in this list']],m.unlock,()=>{const current=readFields(prefix);buildFields(container,prefix,current,allowNone);$(prefix+'-unlock').focus();});
+      if(kind==='email'||m.unlock==='account')field(container,prefix,'dependency','Depends on which account?',[['','Unknown / not in this list'],...state.base.map(a=>[a.id,a.name])],m.dependency||'');
+      if(kind==='email')field(container,prefix,'secondFactor','Also requires a second factor?',[['unknown','Unknown'],['none','No additional factor required'],['phone','Yes — on this phone']],m.secondFactor);
+    }
+    if(kind==='device_passkey'){field(container,prefix,'exists','Do you have another device with this passkey?',tri,m.exists);field(container,prefix,'independent','Can it be opened without the missing phone?',tri,m.independent);}
+    if(kind==='other'){field(container,prefix,'supported','Does the service support this complete recovery path?',tri,m.supported);field(container,prefix,'independent','Is the entire path accessible without phone or other accounts?',tri,m.independent);}
+    if(kind==='unknown')container.append(node('p','Missing or unconfirmed methods stay Unknown.','help'));
+    if(kind==='manager')container.append(node('p','Include everything required to open the manager. An installed app alone is not a working path.','help'));
+    if(kind==='device_passkey')container.append(node('p','Sync alone is not enough. The other device must already be accessible.','help'));
+  }
+  function readFields(prefix){const result={kind:$(prefix+'-kind').value};['store','dependency','secondFactor','unlock','exists','independent','supported'].forEach(k=>{const el=$(prefix+'-'+k);if(el)result[k]=el.value==='true'?true:el.value==='false'?false:el.value;});return result;}
+  function loadEditor(){
+    const list=$('account-select');list.replaceChildren();state.base.forEach(a=>{const o=node('option',a.name);o.value=a.id;list.append(o);});if(!state.base.some(a=>a.id===selected))selected=state.base[0]?.id;
+    list.value=selected||'';const a=state.base.find(a=>a.id===selected);if(!a)return;
+    $('nickname').value=a.name;buildFields($('sign-fields'),'sign',a.methods[0]||{kind:'unknown'});buildFields($('recovery-fields'),'recovery',a.methods[1]||{kind:'none'},true);$('edit-error').hidden=true;
+  }
+  function openChallenge(a){challengeId=a.id;$('challenge-description').textContent=a.name+' is '+a.status+' in the current model. Choose an alternate method, or mark this flag as disputed and Unknown.';buildFields($('challenge-fields'),'alternate',{kind:'unknown'});$('challenge-dialog').showModal();}
+  $('sample').addEventListener('click',()=>start('sample'));$('own').addEventListener('click',()=>start('own'));
+  $('editor').addEventListener('toggle',()=>{$('edit-toggle').setAttribute('aria-expanded',String($('editor').open));});
+  $('edit-toggle').addEventListener('click',()=>{$('editor').open=!$('editor').open;if($('editor').open)$('account-select').focus();});
+  $('account-select').addEventListener('change',()=>{selected=$('account-select').value;loadEditor();});
+  $('cancel-edit').addEventListener('click',()=>{loadEditor();announce('Unsaved edits discarded.');});
+  $('edit-form').addEventListener('submit',e=>{e.preventDefault();const name=$('nickname').value.trim();if(!name||name.includes('@')||/\d{5,}|https?:|www\./i.test(name)){$('edit-error').textContent='Use a short nickname such as Bank, not contact details, a URL or a login ID.';$('edit-error').hidden=false;$('nickname').focus();return;}remember();const a=state.base.find(a=>a.id===selected);a.name=name;a.methods=[readFields('sign'),readFields('recovery')].filter(m=>m.kind!=='none');state.applied=[];state.alternates=[];if(state.mode==='sample'){state.mode='own';state.confirmed={};}render();loadEditor();$('editor').open=false;$('lose').focus();announce('Methods saved. A fresh phone-loss drill is running; simulation changes were reset.');});
+  $('add-account').addEventListener('click',()=>{$('template-dialog').showModal();});
+  $('template-form').addEventListener('submit',e=>{e.preventDefault();remember();const t=$('template').value,templates={email:['Main email','authenticator'],school:['School portal','authenticator'],bank:['Bank','sms'],photos:['Photos','phone_passkey'],library:['Library','passphrase'],unknown:['Other account','unknown']},[name,kind]=templates[t];selected='own-'+(++serial);state.base.push({id:selected,name,methods:[{kind}]});state.mode='own';state.applied=[];state.alternates=[];state.confirmed={};$('template-dialog').close();render();loadEditor();$('editor').open=true;$('nickname').focus();announce('Template added. Check its methods, then save and run the drill.');});
+  $('delete-account').addEventListener('click',()=>{remember();const removed=state.base.find(a=>a.id===selected);state.base=state.base.filter(a=>a.id!==selected);state.applied=[];state.alternates=[];render();if(state.base.length){loadEditor();$('account-select').focus();}else{$('sample').focus();}announce(removed.name+' removed. References to it now remain Unknown.');});
+  $('lose').addEventListener('click',()=>{render();announce('Phone loss recalculated. Inspect the reasons or apply a proposed fix. Reset simulation removes all proposed changes.');});
+  $('reset').addEventListener('click',()=>{remember();state.applied=[];state.alternates=[];commitMessage('Simulation reset to phone loss before fixes. Your method list is unchanged.');});
+  function undoLast(){if(history.length){state=history.pop();render();loadEditor();if(state.base.length)$('lose').focus();else $('sample').focus();announce('Last change undone.');}}
+  $('undo').addEventListener('click',undoLast);$('undo-empty').addEventListener('click',undoLast);
+  $('view-all').addEventListener('click',()=>{const expanded=$('accounts').classList.toggle('expanded');$('view-all').setAttribute('aria-expanded',String(expanded));$('view-all').textContent=expanded?'Show first account':'View all '+state.base.length+' accounts';});
+  $('challenge-form').addEventListener('submit',e=>{e.preventDefault();remember();state.alternates.push({id:challengeId,path:readFields('alternate')});$('challenge-dialog').close();render();const a=Lockout.evaluate(activeData()).accounts.find(a=>a.id===challengeId);($('challenge-'+challengeId)||$('undo')).focus();announce('Alternate path modeled for '+a.name+': '+a.status+'. No real recovery was verified.');});
+  $('dismiss').addEventListener('click',()=>{remember();state.alternates.push({id:challengeId,path:null});$('challenge-dialog').close();render();$('challenge-'+challengeId)?.focus();announce('Flag dismissed as Unknown. This is not counted as rescued. Use Undo to restore the flag.');});
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.close).close()));
+  $('clear').addEventListener('click',()=>{state={base:[],applied:[],alternates:[],confirmed:{},mode:'own'};history=[];selected='';challengeId='';$('accounts').replaceChildren();$('fixes').replaceChildren();$('account-select').replaceChildren();$('nickname').value='';$('challenge-description').textContent='';['sign-fields','recovery-fields','challenge-fields'].forEach(id=>{const legend=$(id).querySelector('legend');$(id).replaceChildren();if(legend)$(id).append(legend);});render();$('sample').focus();announce('List and undo history cleared from this tab.');});
+})();
+</script>
+</body>
+</html>
