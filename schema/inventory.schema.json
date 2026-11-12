@@ -1,0 +1,275 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Lockout Drill metadata inventory",
+  "description": "Use fictional nicknames and local identifiers only. Never supply credentials, contact details, codes or secret values. References are local account IDs; missing references remain Unknown.",
+  "type": "array",
+  "maxItems": 200,
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 48,
+        "pattern": "^[A-Za-z0-9_-]+$"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64,
+        "pattern": "^(?!.*(?:@|[0-9]{5}|[Hh][Tt][Tt][Pp][Ss]?:|[Ww][Ww][Ww]\\.))[^\\r\\n\\t]+$"
+      },
+      "methods": {
+        "type": "array",
+        "maxItems": 16,
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "authenticator"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "sms"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "phone_passkey"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "passphrase"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "unknown"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "backup"
+                },
+                "store": {
+                  "enum": [
+                    "phone",
+                    "printed",
+                    "device",
+                    "unknown"
+                  ]
+                },
+                "independent": {
+                  "enum": [
+                    true,
+                    false,
+                    "unknown"
+                  ]
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "email"
+                },
+                "dependency": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 48,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "secondFactor": {
+                  "enum": [
+                    "phone",
+                    "none",
+                    "unknown"
+                  ]
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "device_passkey"
+                },
+                "exists": {
+                  "enum": [
+                    true,
+                    false,
+                    "unknown"
+                  ]
+                },
+                "independent": {
+                  "enum": [
+                    true,
+                    false,
+                    "unknown"
+                  ]
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "manager"
+                },
+                "store": {
+                  "enum": [
+                    "phone",
+                    "device",
+                    "unknown"
+                  ]
+                },
+                "independent": {
+                  "enum": [
+                    true,
+                    false,
+                    "unknown"
+                  ]
+                },
+                "unlock": {
+                  "enum": [
+                    "memorized",
+                    "phone",
+                    "account",
+                    "unknown"
+                  ]
+                },
+                "dependency": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 48,
+                  "pattern": "^[A-Za-z0-9_-]+$"
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "other"
+                },
+                "supported": {
+                  "enum": [
+                    true,
+                    false,
+                    "unknown"
+                  ]
+                },
+                "independent": {
+                  "enum": [
+                    true,
+                    false,
+                    "unknown"
+                  ]
+                },
+                "confirmed": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "unverified": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "id",
+      "name",
+      "methods"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -60,6 +60,7 @@
 </div>
 <dialog id="challenge-dialog" aria-labelledby="challenge-title"><h2 id="challenge-title">I have another way in</h2><p id="challenge-description"></p><form id="challenge-form"><fieldset class="method-fields" id="challenge-fields"><legend>Describe the alternate path</legend></fieldset><p class="help">A statement alone is not proof. Only a complete, usable modeled path can change this account to Available.</p><div class="dialog-actions"><button type="submit">Add path to simulation</button><button type="button" data-close="challenge-dialog" class="secondary">Cancel</button></div><button type="button" id="dismiss" class="secondary dismiss">Dismiss flag as Unknown — no path supplied</button></form></dialog>
 <dialog id="template-dialog" aria-labelledby="template-title"><h2 id="template-title">Add an account template</h2><p>Templates are starting points. Choose only the methods that match the setup you want to model.</p><form id="template-form"><label for="template">Account template</label><select id="template"><option value="email">Main email · authenticator on phone</option><option value="school">School portal · authenticator on phone</option><option value="bank">Bank · SMS to phone</option><option value="photos">Photos · passkey on phone</option><option value="library">Library · memorized passphrase</option><option value="unknown">Other account · Unknown</option></select><div class="dialog-actions"><button type="submit">Add &amp; edit methods</button><button type="button" class="secondary" data-close="template-dialog">Cancel</button></div></form></dialog>
+<!-- core:start -->
 <script id="lockout-core">
 /* Pure model: no DOM, storage, network, clock, randomness, or mutation of inputs. */
 const Lockout = (() => {
@@ -169,9 +170,97 @@ const Lockout = (() => {
   function rescued(before,after) {
     return after.accounts.filter(a=>a.status==='Available'&&before.accounts.some(b=>b.id===a.id&&b.status==='Locked out')).length;
   }
-  return {sample,evaluate,proposals,apply,alternate,rescued};
+  // The public boundary accepts metadata only. Optional facts may be omitted;
+  // the evaluator then retains Unknown instead of inventing a working path.
+  const tri = {enum:[true,false,'unknown']};
+  const identifier = {type:'string',minLength:1,maxLength:48,pattern:'^[A-Za-z0-9_-]+$'};
+  const closed = (properties,required) => ({type:'object',properties,required,additionalProperties:false});
+  const methodProperties = {
+    authenticator:{}, sms:{}, phone_passkey:{}, passphrase:{}, unknown:{},
+    backup:{store:{enum:['phone','printed','device','unknown']},independent:tri},
+    email:{dependency:identifier,secondFactor:{enum:['phone','none','unknown']}},
+    device_passkey:{exists:tri,independent:tri},
+    manager:{store:{enum:['phone','device','unknown']},independent:tri,unlock:{enum:['memorized','phone','account','unknown']},dependency:identifier},
+    other:{supported:tri,independent:tri}
+  };
+  const inventorySchema = {
+    $schema:'https://json-schema.org/draft/2020-12/schema',
+    title:'Lockout Drill metadata inventory',
+    description:'Use fictional nicknames and local identifiers only. Never supply credentials, contact details, codes or secret values. References are local account IDs; missing references remain Unknown.',
+    type:'array',maxItems:200,
+    items:closed({
+      id:identifier,
+      name:{type:'string',minLength:1,maxLength:64,pattern:'^(?!.*(?:@|[0-9]{5}|[Hh][Tt][Tt][Pp][Ss]?:|[Ww][Ww][Ww]\\.))[^\\r\\n\\t]+$'},
+      methods:{type:'array',maxItems:16,items:{oneOf:Object.entries(methodProperties).map(([kind,props]) => closed({kind:{const:kind},...props,confirmed:{type:'boolean'}},['kind']))}},
+      unverified:{type:'boolean'}
+    },['id','name','methods'])
+  };
+  // Implements only the JSON Schema vocabulary used by this module's schemas.
+  // It is deliberately not a general-purpose JSON Schema implementation.
+  function matches(value,schema) {
+    if(schema.oneOf && schema.oneOf.filter(s=>matches(value,s)).length!==1) return false;
+    if(schema.enum && !schema.enum.includes(value)) return false;
+    if(Object.hasOwn(schema,'const') && value!==schema.const) return false;
+    if(schema.type==='object') {
+      if(!value || typeof value!=='object' || Array.isArray(value)) return false;
+      if(schema.required?.some(k=>!Object.hasOwn(value,k))) return false;
+      if(schema.additionalProperties===false && Object.keys(value).some(k=>!Object.hasOwn(schema.properties,k))) return false;
+      return Object.entries(schema.properties).every(([k,s])=>!Object.hasOwn(value,k)||matches(value[k],s));
+    }
+    if(schema.type==='array') return Array.isArray(value) && (schema.maxItems===undefined || value.length<=schema.maxItems) && value.every(v=>matches(v,schema.items));
+    if(schema.type==='string') return typeof value==='string' && (schema.minLength===undefined || [...value].length>=schema.minLength) && (schema.maxLength===undefined || [...value].length<=schema.maxLength) && (!schema.pattern || new RegExp(schema.pattern).test(value));
+    if(schema.type==='boolean') return typeof value==='boolean';
+    if(schema.type==='integer') return Number.isSafeInteger(value) && (schema.minimum===undefined || value>=schema.minimum);
+    return true;
+  }
+  function failure(code,message) { return {ok:false,error:{code,message}}; }
+  function validateInventory(input) {
+    if(!matches(input,inventorySchema) || new Set(input.map(a=>a.id)).size!==input.length)
+      return failure('INVALID_INVENTORY','Inventory must match the metadata schema with unique local account IDs. Use fictional nicknames and method types only.');
+    return {ok:true};
+  }
+  function analyzeLockout(input,lose='phone') {
+    if(lose!=='phone') return failure('INVALID_ARGUMENTS','Only the phone loss scenario is supported.');
+    const validation=validateInventory(input);
+    if(!validation.ok) return validation;
+    return {...evaluate(input),scenario:'phone'};
+  }
+  function suggestFixes(input) {
+    const before=analyzeLockout(input);
+    if(!before.ok) return before;
+    const assumptions={
+      backup:['The service accepts these backup codes and a usable printed copy is accessible without the phone.'],
+      passkey:['The service supports this passkey and another enrolled device is accessible independently of the lost phone.'],
+      independent:['The service supports a complete recovery path that is accessible without the phone or recovery email.']
+    };
+    const fixes=proposals(input).filter(f=>f.targets.length).map(f=>{
+      const after=evaluate(apply(input,f,true));
+      return {...f,rescued:rescued(before,after),countsAfter:after.counts,conditional:true,assumptions:assumptions[f.id]};
+    }).sort((a,b)=>b.rescued-a.rescued);
+    return {ok:true,scenario:'phone',counts:before.counts,fixes};
+  }
+  const countSchema=closed(Object.fromEntries(['locked','available','unknown'].map(k=>[k,{type:'integer',minimum:0}])),['locked','available','unknown']);
+  const statusSchema={enum:['Available','Locked out','Unknown']};
+  const textSchema={type:'string'};
+  const accountSchema=closed({id:textSchema,name:textSchema,status:statusSchema,chain:textSchema,paths:{type:'array',items:closed({text:textSchema,status:statusSchema},['text','status'])},explanation:textSchema},['id','name','status','chain','paths','explanation']);
+  const resultProperties={ok:{const:true},scenario:{const:'phone'},counts:countSchema};
+  const analysisOutputSchema=closed({...resultProperties,accounts:{type:'array',items:accountSchema}},['ok','scenario','counts','accounts']);
+  const fixesOutputSchema=closed({...resultProperties,fixes:{type:'array',items:closed({id:{enum:['backup','passkey','independent']},title:textSchema,targets:{type:'array',items:textSchema},rescued:{type:'integer',minimum:0},countsAfter:countSchema,conditional:{const:true},assumptions:{type:'array',items:textSchema}},['id','title','targets','rescued','countsAfter','conditional','assumptions'])}},['ok','scenario','counts','fixes']);
+  const annotations={readOnlyHint:true,destructiveHint:false,idempotentHint:true,openWorldHint:false};
+  const tools=[
+    {name:'analyze_lockout',description:'Simulate phone loss using fictional method metadata. Unknown is not safe; real recovery is unverified.',inputSchema:closed({inventory:inventorySchema,lose:{const:'phone',default:'phone'}},['inventory']),outputSchema:analysisOutputSchema,annotations},
+    {name:'suggest_fixes',description:'Rank conditional recovery proposals by independently rescued locked accounts. Do not add overlapping counts or treat assumptions as verified.',inputSchema:closed({inventory:inventorySchema},['inventory']),outputSchema:fixesOutputSchema,annotations}
+  ];
+  function callTool(name,args) {
+    const tool=tools.find(t=>t.name===name);
+    if(!tool || !matches(args,tool.inputSchema)) return failure('INVALID_ARGUMENTS','Arguments must match the tool metadata schema.');
+    return name==='analyze_lockout'?analyzeLockout(args.inventory,args.lose):suggestFixes(args.inventory);
+  }
+  return {sample,evaluate,proposals,apply,alternate,rescued,inventorySchema,validateInventory,analyzeLockout,suggestFixes,tools,callTool};
 })();
+
 </script>
+<!-- core:end -->
 <script id="lockout-ui">
 (() => {
   'use strict';

@@ -1,0 +1,10 @@
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
+export const root = fileURLToPath(new URL('../', import.meta.url));
+const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const context = vm.createContext({});
+vm.runInContext(html.match(/<script id="lockout-core">([\s\S]*?)<\/script>/)[1] + '\nthis.model = Lockout;', context);
+export const sample = JSON.parse(JSON.stringify(context.model.sample()));
+export const counts = { locked: 7, available: 1, unknown: 1 };
+export const account = (id, methods) => ({ id, name: id, methods });

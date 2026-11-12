@@ -1,0 +1,97 @@
+[
+  {
+    "id": "bank",
+    "name": "Bank",
+    "methods": [
+      {
+        "kind": "sms"
+      }
+    ]
+  },
+  {
+    "id": "school",
+    "name": "School portal",
+    "methods": [
+      {
+        "kind": "authenticator"
+      },
+      {
+        "kind": "backup",
+        "store": "phone"
+      }
+    ]
+  },
+  {
+    "id": "email",
+    "name": "Main email",
+    "methods": [
+      {
+        "kind": "authenticator"
+      },
+      {
+        "kind": "backup",
+        "store": "phone"
+      }
+    ]
+  },
+  {
+    "id": "code",
+    "name": "Code host",
+    "methods": [
+      {
+        "kind": "authenticator"
+      },
+      {
+        "kind": "backup",
+        "store": "phone"
+      }
+    ]
+  },
+  {
+    "id": "notes",
+    "name": "Cloud notes",
+    "methods": [
+      {
+        "kind": "phone_passkey"
+      }
+    ]
+  },
+  {
+    "id": "photos",
+    "name": "Photos",
+    "methods": [
+      {
+        "kind": "phone_passkey"
+      }
+    ]
+  },
+  {
+    "id": "jobs",
+    "name": "Student jobs",
+    "methods": [
+      {
+        "kind": "email",
+        "dependency": "email",
+        "secondFactor": "phone"
+      }
+    ]
+  },
+  {
+    "id": "library",
+    "name": "Library",
+    "methods": [
+      {
+        "kind": "passphrase"
+      }
+    ]
+  },
+  {
+    "id": "wallet",
+    "name": "Wallet",
+    "methods": [
+      {
+        "kind": "unknown"
+      }
+    ]
+  }
+]
