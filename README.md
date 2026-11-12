@@ -188,6 +188,11 @@ button labels, order, styling and UI handlers were preserved.
 ## Built with
 Plain HTML, CSS and JavaScript in one file. No external requests, fonts, or libraries.
 
+## Review on November 13, 2026
+
+- The first prototype was built on November 12, 2026, within the build window; this repository starts from it.
+- After this update, the generated `index.html` was walked through in a headless Chromium browser at desktop (1440 px) and mobile (390 px) widths, from the first screen through the sample flow, with no network requests observed and no page errors.
+
 ## Credits and AI assistance
 - Prototype code and tests were generated with OpenAI Codex from written specifications and design mockups; planning, review, and browser testing used Anthropic Claude.
 - This 2026-11-13 core/CLI/MCP update, tests and documentation were also produced with OpenAI Codex assistance. Verification used Node 22 and static checks; no browser tools were used for this update. The earlier credit above describes the supplied prototype.
