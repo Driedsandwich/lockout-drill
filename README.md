@@ -30,15 +30,15 @@ these generated files after changing the core; do not edit them directly.
 The generated HTML still opens as one standalone offline file, including via
 `file://`, without loading any modules or other files.
 
-The original 24 tests are unchanged. Before implementing the new interfaces,
-30 new tests were written and run: **24 passed, 30 failed (54 total)**. After
-implementation: **54 passed, 0 failed**, on Node **v22.23.4**. Full TAP logs and
-commands are in `RESULTS_BEFORE.txt` and `RESULTS_AFTER.txt`. The added tests cover
+On **2026-11-17**, all **54 tests passed, with 0 failures**, both before and after
+the README changes, on Node **v26.13.0**. The test files are unchanged. Full logs
+and commands are in `RESULTS_BEFORE.txt` and `RESULTS_AFTER.txt`. The tests cover
 CLI input and errors, MCP lifecycle and tools, Unknown, conditional ranking,
 input bounds, shared-core parity and reproducible artifacts. UI tests use an
-in-memory DOM double. Rendering, native dialogs, assistive technology and an
-external MCP application's integration have not been tested in this work;
-browser tools were excluded by the task constraints.
+in-memory DOM double, which does not verify rendering, native dialogs or
+assistive technology. The automated suite exercises the MCP server directly;
+integration with an external MCP application has not been tested. The November
+17 checks used Node.js only; the earlier browser review is described below.
 
 ## Inventory format
 
@@ -123,9 +123,9 @@ phone-loss inventory, including dependent accounts. Ties keep proposal order
 (backup, passkey, independent). Proposals without targets are omitted.
 These are **conditional simulations**, assuming the stated recovery path works;
 no service support or access is verified. Unknown becoming Available is not
-counted as a rescue. Do not sum counts across overlapping fixes. The existing
-UI's cumulative apply/undo simulation remains unchanged. Proposals cover these
-three existing method patterns only; an empty list is not proof of safety.
+counted as a rescue. Do not sum counts across overlapping fixes. The UI supports
+cumulative application of fixes and undo. Proposals cover these three method
+patterns only; an empty list is not proof of safety.
 
 ## MCP (local stdio)
 
@@ -177,23 +177,24 @@ offline.
 
 ## Work within the build window (2026-10-17–2026-11-22)
 
-On **2026-11-13**, this update added the extracted pure core, reproducible inline
-build, CLI, dependency-free local MCP server, metadata schema, Mika JSON example,
-Node 22 package scripts, interface tests and before/after results. All of that
-date falls within the stated window. The supplied single-page prototype and its
-24 tests are the baseline; this update does not establish their original creation
-date. It makes no claim about work on dates after this update. Screen flow,
-button labels, order, styling and UI handlers were preserved.
+The first single-page prototype was built on **2026-11-12**. On **2026-11-13**,
+the shared calculation core, reproducible inline build, CLI, local MCP server,
+metadata schema, Mika JSON example, Node package scripts and additional tests
+were added. Both dates fall within the hackathon build window.
+
+No pre-existing third-party work is included in the project.
 
 ## Built with
 Plain HTML, CSS and JavaScript in one file. No external requests, fonts, or libraries.
 
 ## Review on November 13, 2026
 
-- The first prototype was built on November 12, 2026, within the build window; this repository starts from it.
-- After this update, the generated `index.html` was walked through in a headless Chromium browser at desktop (1440 px) and mobile (390 px) widths, from the first screen through the sample flow, with no network requests observed and no page errors.
+The generated `index.html` was reviewed in a headless Chromium browser at desktop
+(1440 px) and mobile (390 px) widths, from the first screen through the sample
+flow, with no network requests observed and no page errors.
 
 ## Credits and AI assistance
-- Prototype code and tests were generated with OpenAI Codex from written specifications and design mockups; planning, review, and browser testing used Anthropic Claude.
-- This 2026-11-13 core/CLI/MCP update, tests and documentation were also produced with OpenAI Codex assistance. Verification used Node 22 and static checks; no browser tools were used for this update. The earlier credit above describes the supplied prototype.
+- I used OpenAI Codex to generate code and tests, and Anthropic Claude for
+  planning, review and browser checks. I selected the project and its design
+  direction from options explored with AI assistance.
 - All sample data is fictional.

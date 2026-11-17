@@ -1,348 +1,78 @@
-Date: 2026-11-13
-Runtime: Node v22.23.4
+Date: 2026-11-17
+Runtime: Node v26.13.0
+Environment: npm_config_offline=true npm_config_update_notifier=false
 Commands: npm run build; npm test
 Test expansion: node --test tests/*.test.*
 Build exit code: 0; Test exit code: 0
-After implementation: 54 tests; 54 passed; 0 failed.
-Existing tests: 24 passed unchanged. New tests: CLI 16 + MCP 11 + build/core 3 passed.
-Additional checks: original UI outside the generated core is byte-for-byte unchanged; original test files unchanged; independent Draft 2020-12 schema validation of inventory and both MCP outputs; interactive MCP initialization and fragmented UTF-8 input; clean EOF; git diff --check. All passed.
-Not verified: browser rendering, native dialogs, assistive technology, or third-party MCP client integration. No browser tools were used.
+Phase: After README changes; existing tests unchanged.
+
+
+> lockout-drill@1.0.0 build
+> node scripts/build.mjs
 
 
 > lockout-drill@1.0.0 test
 > node --test tests/*.test.*
 
-TAP version 13
-# Subtest: shared core: module agrees with embedded model and does not mutate inputs
-ok 1 - shared core: module agrees with embedded model and does not mutate inputs
-  ---
-  duration_ms: 7.621245
-  type: 'test'
-  ...
-# Subtest: build: checked-in HTML, schema and sample are reproducible
-ok 2 - build: checked-in HTML, schema and sample are reproducible
-  ---
-  duration_ms: 39.529154
-  type: 'test'
-  ...
-# Subtest: schema: closed inventory and method objects, fictional sample matches
-ok 3 - schema: closed inventory and method objects, fictional sample matches
-  ---
-  duration_ms: 1.203745
-  type: 'test'
-  ...
-# Subtest: CLI: analyzes a file and reports counts, reasons and Unknown
-ok 4 - CLI: analyzes a file and reports counts, reasons and Unknown
-  ---
-  duration_ms: 54.417821
-  type: 'test'
-  ...
-# Subtest: CLI: accepts explicit and implicit stdin
-ok 5 - CLI: accepts explicit and implicit stdin
-  ---
-  duration_ms: 88.809302
-  type: 'test'
-  ...
-# Subtest: CLI: ranks fixes by independent conditional rescue counts
-ok 6 - CLI: ranks fixes by independent conditional rescue counts
-  ---
-  duration_ms: 50.261953
-  type: 'test'
-  ...
-# Subtest: CLI: ranking adapts to inventory, includes dependent rescues
-ok 7 - CLI: ranking adapts to inventory, includes dependent rescues
-  ---
-  duration_ms: 42.381831
-  type: 'test'
-  ...
-# Subtest: CLI: unresolved cycle and incomplete method stay Unknown
-ok 8 - CLI: unresolved cycle and incomplete method stay Unknown
-  ---
-  duration_ms: 42.20373
-  type: 'test'
-  ...
-# Subtest: CLI error: bad JSON
-ok 9 - CLI error: bad JSON
-  ---
-  duration_ms: 43.092243
-  type: 'test'
-  ...
-# Subtest: CLI error: invalid inventory
-ok 10 - CLI error: invalid inventory
-  ---
-  duration_ms: 42.28265
-  type: 'test'
-  ...
-# Subtest: CLI error: duplicate ids
-ok 11 - CLI error: duplicate ids
-  ---
-  duration_ms: 43.207119
-  type: 'test'
-  ...
-# Subtest: CLI error: secret field
-ok 12 - CLI error: secret field
-  ---
-  duration_ms: 40.781486
-  type: 'test'
-  ...
-# Subtest: CLI error: secret method field
-ok 13 - CLI error: secret method field
-  ---
-  duration_ms: 41.172104
-  type: 'test'
-  ...
-# Subtest: CLI error: wrong enum
-ok 14 - CLI error: wrong enum
-  ---
-  duration_ms: 39.397226
-  type: 'test'
-  ...
-# Subtest: CLI error: unknown option
-ok 15 - CLI error: unknown option
-  ---
-  duration_ms: 34.779794
-  type: 'test'
-  ...
-# Subtest: CLI error: unsupported loss
-ok 16 - CLI error: unsupported loss
-  ---
-  duration_ms: 37.862741
-  type: 'test'
-  ...
-# Subtest: CLI error: missing file
-ok 17 - CLI error: missing file
-  ---
-  duration_ms: 35.200926
-  type: 'test'
-  ...
-# Subtest: CLI error: oversized input
-ok 18 - CLI error: oversized input
-  ---
-  duration_ms: 42.035867
-  type: 'test'
-  ...
-# Subtest: CLI: human output and help are usable
-ok 19 - CLI: human output and help are usable
-  ---
-  duration_ms: 115.114956
-  type: 'test'
-  ...
-# Subtest: normal: fictional sample gives 7 → 4 → 2 → 1, with Unknown separate
-ok 20 - normal: fictional sample gives 7 → 4 → 2 → 1, with Unknown separate
-  ---
-  duration_ms: 4.626887
-  type: 'test'
-  ...
-# Subtest: normal: all six application orders reach the same final result
-ok 21 - normal: all six application orders reach the same final result
-  ---
-  duration_ms: 4.184622
-  type: 'test'
-  ...
-# Subtest: normal: phone present is a separate scenario, not the displayed Before
-ok 22 - normal: phone present is a separate scenario, not the displayed Before
-  ---
-  duration_ms: 0.278363
-  type: 'test'
-  ...
-# Subtest: normal: fixed point follows a reversed multi-account recovery chain
-ok 23 - normal: fixed point follows a reversed multi-account recovery chain
-  ---
-  duration_ms: 0.375485
-  type: 'test'
-  ...
-# Subtest: normal: removing a fix and resetting reconstruct the original result
-ok 24 - normal: removing a fix and resetting reconstruct the original result
-  ---
-  duration_ms: 1.168841
-  type: 'test'
-  ...
-# Subtest: ambiguous: jobs requires email AND the phone factor
-ok 25 - ambiguous: jobs requires email AND the phone factor
-  ---
-  duration_ms: 0.549385
-  type: 'test'
-  ...
-# Subtest: ambiguous: pure dependency cycles are Unknown; a real independent path resolves them
-ok 26 - ambiguous: pure dependency cycles are Unknown; a real independent path resolves them
-  ---
-  duration_ms: 0.781491
-  type: 'test'
-  ...
-# Subtest: ambiguous: failed path plus unspecified path remains Unknown
-ok 27 - ambiguous: failed path plus unspecified path remains Unknown
-  ---
-  duration_ms: 0.254182
-  type: 'test'
-  ...
-# Subtest: ambiguous: dismissed flag is not a rescue; a complete alternate path may be
-ok 28 - ambiguous: dismissed flag is not a rescue; a complete alternate path may be
-  ---
-  duration_ms: 1.03438
-  type: 'test'
-  ...
-# Subtest: ambiguous: synced or inaccessible other device does not imply Available
-ok 29 - ambiguous: synced or inaccessible other device does not imply Available
-  ---
-  duration_ms: 0.635642
-  type: 'test'
-  ...
-# Subtest: ambiguous: manager needs both accessible storage and an unlock method
-ok 30 - ambiguous: manager needs both accessible storage and an unlock method
-  ---
-  duration_ms: 0.368325
-  type: 'test'
-  ...
-# Subtest: ambiguous: unconfirmed proposals do not rescue accounts
-ok 31 - ambiguous: unconfirmed proposals do not rescue accounts
-  ---
-  duration_ms: 0.426079
-  type: 'test'
-  ...
-# Subtest: ambiguous: overlapping and repeated fixes do not double-count rescued accounts
-ok 32 - ambiguous: overlapping and repeated fixes do not double-count rescued accounts
-  ---
-  duration_ms: 0.298916
-  type: 'test'
-  ...
-# Subtest: failure: invalid collections and duplicate identifiers return an explicit error
-ok 33 - failure: invalid collections and duplicate identifiers return an explicit error
-  ---
-  duration_ms: 0.18327
-  type: 'test'
-  ...
-# Subtest: failure: malformed, empty, unsupported, or incomplete methods remain Unknown
-ok 34 - failure: malformed, empty, unsupported, or incomplete methods remain Unknown
-  ---
-  duration_ms: 0.263884
-  type: 'test'
-  ...
-# Subtest: failure: special internal keys cannot inherit a working dependency
-ok 35 - failure: special internal keys cannot inherit a working dependency
-  ---
-  duration_ms: 0.174855
-  type: 'test'
-  ...
-# Subtest: offline artifact: no external loads, network APIs, persistent storage, or inline event attributes
-ok 36 - offline artifact: no external loads, network APIs, persistent storage, or inline event attributes
-  ---
-  duration_ms: 1.951145
-  type: 'test'
-  ...
-# Subtest: static accessibility: unique IDs, explicit input labels, dialog names and live status
-ok 37 - static accessibility: unique IDs, explicit input labels, dialog names and live status
-  ---
-  duration_ms: 0.607851
-  type: 'test'
-  ...
-# Subtest: static accessibility: all three text colors exceed 4.5:1 on white
-ok 38 - static accessibility: all three text colors exceed 4.5:1 on white
-  ---
-  duration_ms: 0.383438
-  type: 'test'
-  ...
-# Subtest: MCP: initializes, lists two typed tools and handles ping
-ok 39 - MCP: initializes, lists two typed tools and handles ping
-  ---
-  duration_ms: 44.808244
-  type: 'test'
-  ...
-# Subtest: MCP: analyze returns structured and text results, preserving Unknown
-ok 40 - MCP: analyze returns structured and text results, preserving Unknown
-  ---
-  duration_ms: 42.457246
-  type: 'test'
-  ...
-# Subtest: MCP: fixes return sorted conditional simulations
-ok 41 - MCP: fixes return sorted conditional simulations
-  ---
-  duration_ms: 41.824817
-  type: 'test'
-  ...
-# Subtest: MCP: negotiates an unsupported protocol to a supported version
-ok 42 - MCP: negotiates an unsupported protocol to a supported version
-  ---
-  duration_ms: 36.009689
-  type: 'test'
-  ...
-# Subtest: MCP: rejects use before initialization
-ok 43 - MCP: rejects use before initialization
-  ---
-  duration_ms: 37.559964
-  type: 'test'
-  ...
-# Subtest: MCP: invalid initialize parameters can be corrected
-ok 44 - MCP: invalid initialize parameters can be corrected
-  ---
-  duration_ms: 42.785997
-  type: 'test'
-  ...
-# Subtest: MCP: malformed frames, invalid requests and unknown methods recover
-ok 45 - MCP: malformed frames, invalid requests and unknown methods recover
-  ---
-  duration_ms: 37.461021
-  type: 'test'
-  ...
-# Subtest: MCP: notifications do not receive responses
-ok 46 - MCP: notifications do not receive responses
-  ---
-  duration_ms: 37.858012
-  type: 'test'
-  ...
-# Subtest: MCP: unknown tool is a protocol error
-ok 47 - MCP: unknown tool is a protocol error
-  ---
-  duration_ms: 37.980117
-  type: 'test'
-  ...
-# Subtest: MCP: tool input errors have JSON error data and do not echo values
-ok 48 - MCP: tool input errors have JSON error data and do not echo values
-  ---
-  duration_ms: 181.305753
-  type: 'test'
-  ...
-# Subtest: MCP: oversized frames are rejected and the next frame still works
-ok 49 - MCP: oversized frames are rejected and the next frame still works
-  ---
-  duration_ms: 41.068985
-  type: 'test'
-  ...
-# Subtest: normal UI: sample entry, three actual apply handlers, undo, reset and all-accounts toggle
-ok 50 - normal UI: sample entry, three actual apply handlers, undo, reset and all-accounts toggle
-  ---
-  duration_ms: 30.543999
-  type: 'test'
-  ...
-# Subtest: ambiguous UI: opening challenge changes nothing, dismiss moves to Unknown, undo restores
-ok 51 - ambiguous UI: opening challenge changes nothing, dismiss moves to Unknown, undo restores
-  ---
-  duration_ms: 8.001492
-  type: 'test'
-  ...
-# Subtest: normal UI: complete alternate path is added and can be undone
-ok 52 - normal UI: complete alternate path is added and can be undone
-  ---
-  duration_ms: 5.847112
-  type: 'test'
-  ...
-# Subtest: normal UI: own list, dynamic editor, confirmation, and template creation
-ok 53 - normal UI: own list, dynamic editor, confirmation, and template creation
-  ---
-  duration_ms: 7.492354
-  type: 'test'
-  ...
-# Subtest: failure UI: reject contact-like nickname, undo last removal, and clear without stale fields
-ok 54 - failure UI: reject contact-like nickname, undo last removal, and clear without stale fields
-  ---
-  duration_ms: 3.387871
-  type: 'test'
-  ...
-1..54
-# tests 54
-# suites 0
-# pass 54
-# fail 0
-# cancelled 0
-# skipped 0
-# todo 0
-# duration_ms 875.172586
+✔ shared core: module agrees with embedded model and does not mutate inputs (6.635002ms)
+✔ build: checked-in HTML, schema and sample are reproducible (35.611333ms)
+✔ schema: closed inventory and method objects, fictional sample matches (1.197815ms)
+✔ CLI: analyzes a file and reports counts, reasons and Unknown (52.443478ms)
+✔ CLI: accepts explicit and implicit stdin (93.13336ms)
+✔ CLI: ranks fixes by independent conditional rescue counts (47.883985ms)
+✔ CLI: ranking adapts to inventory, includes dependent rescues (38.664978ms)
+✔ CLI: unresolved cycle and incomplete method stay Unknown (38.270704ms)
+✔ CLI error: bad JSON (39.09022ms)
+✔ CLI error: invalid inventory (37.144734ms)
+✔ CLI error: duplicate ids (37.803861ms)
+✔ CLI error: secret field (41.967553ms)
+✔ CLI error: secret method field (42.256968ms)
+✔ CLI error: wrong enum (40.43339ms)
+✔ CLI error: unknown option (34.865022ms)
+✔ CLI error: unsupported loss (35.578632ms)
+✔ CLI error: missing file (37.282439ms)
+✔ CLI error: oversized input (41.885953ms)
+✔ CLI: human output and help are usable (113.184151ms)
+✔ normal: fictional sample gives 7 → 4 → 2 → 1, with Unknown separate (7.130967ms)
+✔ normal: all six application orders reach the same final result (4.754822ms)
+✔ normal: phone present is a separate scenario, not the displayed Before (0.37479ms)
+✔ normal: fixed point follows a reversed multi-account recovery chain (0.500297ms)
+✔ normal: removing a fix and resetting reconstruct the original result (0.965236ms)
+✔ ambiguous: jobs requires email AND the phone factor (0.733308ms)
+✔ ambiguous: pure dependency cycles are Unknown; a real independent path resolves them (0.404305ms)
+✔ ambiguous: failed path plus unspecified path remains Unknown (0.273111ms)
+✔ ambiguous: dismissed flag is not a rescue; a complete alternate path may be (1.012965ms)
+✔ ambiguous: synced or inaccessible other device does not imply Available (0.711355ms)
+✔ ambiguous: manager needs both accessible storage and an unlock method (0.510048ms)
+✔ ambiguous: unconfirmed proposals do not rescue accounts (0.549667ms)
+✔ ambiguous: overlapping and repeated fixes do not double-count rescued accounts (0.399882ms)
+✔ failure: invalid collections and duplicate identifiers return an explicit error (0.217043ms)
+✔ failure: malformed, empty, unsupported, or incomplete methods remain Unknown (0.600724ms)
+✔ failure: special internal keys cannot inherit a working dependency (0.281631ms)
+✔ offline artifact: no external loads, network APIs, persistent storage, or inline event attributes (2.132025ms)
+✔ static accessibility: unique IDs, explicit input labels, dialog names and live status (0.770134ms)
+✔ static accessibility: all three text colors exceed 4.5:1 on white (0.563597ms)
+✔ MCP: initializes, lists two typed tools and handles ping (50.288149ms)
+✔ MCP: analyze returns structured and text results, preserving Unknown (38.478188ms)
+✔ MCP: fixes return sorted conditional simulations (44.950164ms)
+✔ MCP: negotiates an unsupported protocol to a supported version (34.479233ms)
+✔ MCP: rejects use before initialization (36.579799ms)
+✔ MCP: invalid initialize parameters can be corrected (36.062934ms)
+✔ MCP: malformed frames, invalid requests and unknown methods recover (37.556887ms)
+✔ MCP: notifications do not receive responses (35.358936ms)
+✔ MCP: unknown tool is a protocol error (37.791778ms)
+✔ MCP: tool input errors have JSON error data and do not echo values (183.756896ms)
+✔ MCP: oversized frames are rejected and the next frame still works (40.841401ms)
+✔ normal UI: sample entry, three actual apply handlers, undo, reset and all-accounts toggle (22.979204ms)
+✔ ambiguous UI: opening challenge changes nothing, dismiss moves to Unknown, undo restores (7.824287ms)
+✔ normal UI: complete alternate path is added and can be undone (8.661948ms)
+✔ normal UI: own list, dynamic editor, confirmation, and template creation (7.205976ms)
+✔ failure UI: reject contact-like nickname, undo last removal, and clear without stale fields (6.152921ms)
+ℹ tests 54
+ℹ suites 0
+ℹ pass 54
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 856.134482
