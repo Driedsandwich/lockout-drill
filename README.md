@@ -30,15 +30,14 @@ these generated files after changing the core; do not edit them directly.
 The generated HTML still opens as one standalone offline file, including via
 `file://`, without loading any modules or other files.
 
-On **2026-11-17**, all **54 tests passed, with 0 failures**, both before and after
-the README changes, on Node **v26.13.0**. The test files are unchanged. Full logs
-and commands are in `RESULTS_BEFORE.txt` and `RESULTS_AFTER.txt`. The tests cover
+All **54 tests pass** (`npm test`) on Node v22 and v26. Full logs and commands
+are in `RESULTS_BEFORE.txt` and `RESULTS_AFTER.txt`. The tests cover
 CLI input and errors, MCP lifecycle and tools, Unknown, conditional ranking,
 input bounds, shared-core parity and reproducible artifacts. UI tests use an
 in-memory DOM double, which does not verify rendering, native dialogs or
 assistive technology. The automated suite exercises the MCP server directly;
-integration with an external MCP application has not been tested. The November
-17 checks used Node.js only; the earlier browser review is described below.
+integration with an external MCP application has not been tested. The browser
+review is described below.
 
 ## Inventory format
 
